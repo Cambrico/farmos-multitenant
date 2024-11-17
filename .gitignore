@@ -32,11 +32,9 @@ Thumbs.db
 backups
 old
 *.sql.gz
-/web/themes/custom/cambrico_starterkit_theme
 # Ignore ddev/development services file.
 /web/sites/*/development.services.yml
 /web/sites/*/settings.ddev.php
-.ddev/php/999-xdebug.ini
 mutagen.yml
 mutagen.yml.lock
 
@@ -70,6 +68,7 @@ web/modules/*
 !web/themes
 web/themes/*
 !web/themes/custom
+!/web/sites/default/settings.php
 
 .composer
 private
