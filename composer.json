@@ -40,6 +40,11 @@
             ],
             "merge-extra": true,
             "merge-extra-deep": true
+        },
+        "patches": {
+            "farmos/farmos": {
+                "Organization": "https://patch-diff.githubusercontent.com/raw/farmOS/farmOS/pull/849.patch"
+            }
         }
     },
     "config": {
