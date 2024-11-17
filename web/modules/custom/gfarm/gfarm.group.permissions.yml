@@ -1,0 +1,3 @@
+access group_organization overview:
+  title: 'Access group organization overview'
+  description: 'Access the overview of all group organizations, regardless of type'

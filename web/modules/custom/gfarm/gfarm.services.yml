@@ -1,0 +1,10 @@
+services:
+  gfarm.route_subscriber:
+    class: 'Drupal\gfarm\Routing\RouteSubscriber'
+    tags:
+      - { name: 'event_subscriber' }
+
+  group.relation_handler.permission_provider.organization:
+    class: 'Drupal\gfarm\Plugin\Group\RelationHandler\GroupOrganizationPermissionProvider'
+    arguments: ['@group.relation_handler.permission_provider']
+    shared: false

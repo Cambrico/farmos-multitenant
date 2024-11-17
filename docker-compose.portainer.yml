@@ -1,0 +1,58 @@
+services:
+  db:
+    labels:
+      - traefik.enable=false
+      - com.centurylinklabs.watchtower.enable=true
+      - docker-volume-backup.stop-during-backup=${COMPOSE_PROJECT_NAME?err}
+    networks:
+      - internal
+  drupal:
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${EXTERNAL_NETWORK?err}
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME?err}.rule=Host("${APP_DOMAIN:-${COMPOSE_PROJECT_NAME?err}}")
+      - com.centurylinklabs.watchtower.monitor-only=true
+    networks:
+      - internal
+      - external
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      MAIL_SMTP_HOST: ${MAIL_SMTP_HOST:-host.docker.internal}
+  backup:
+    profiles:
+      - prod
+    image: offen/docker-volume-backup:v2
+    restart: always
+    environment:
+      BACKUP_STOP_CONTAINER_LABEL: ${COMPOSE_PROJECT_NAME?err}
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      NOTIFICATION_LEVEL:
+      NOTIFICATION_URLS:
+      BACKUP_CRON_EXPRESSION:
+      AWS_ENDPOINT:
+      BACKUP_FILENAME:
+      BACKUP_PRUNING_PREFIX:
+      BACKUP_RETENTION_DAYS:
+      AWS_S3_BUCKET_NAME:
+      AWS_S3_PATH:
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /opt/docker/dropin/docker-volume-backup/notifications.tpl:/etc/dockervolumebackup/notifications.d/template.tpl:ro
+      - db-data:/backup/db-data:ro
+      - drupal-files:/backup/drupal-files:ro
+      - drupal-private:/backup/drupal-private:ro
+
+volumes:
+  db-data:
+  drupal-files:
+  drupal-private:
+
+networks:
+  external:
+    name: ${EXTERNAL_NETWORK?err}
+    external: true
+  internal:
