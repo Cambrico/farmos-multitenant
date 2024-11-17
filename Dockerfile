@@ -157,5 +157,7 @@ ENV \
     DEPLOY='1' \
     DEPLOY_CMD='sleep 10; drush deploy'
 
-ENTRYPOINT ["custom-entrypoint"]
+RUN chmod 755 /usr/local/bin/custom-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/custom-entrypoint"]
 CMD ["apache2-foreground"]
