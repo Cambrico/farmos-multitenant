@@ -7,8 +7,8 @@ xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns: []
 database:
-    type: mariadb
-    version: "10.11"
+    type: postgres
+    version: "12"
 hooks:
     post-start:
         - exec: mkdir -p /var/www/html/${DDEV_DOCROOT}/sites/default/files/private
