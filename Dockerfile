@@ -112,19 +112,6 @@ COPY . /var/www
 WORKDIR /var/www
 
 RUN set -eux; \
-    export COMPOSER_HOME="$(mktemp -d)"; \
-    export COMPOSER_ALLOW_SUPERUSER=1; \
-    composer install --no-dev --optimize-autoloader; \
-    #composer diagnose ; pwd ; ls -lah ; ls -lah /var/www ; ls -lah /var/www/web; \
-    rm -rf html; \
-    ln -s web html; \
-    rm -rf "$COMPOSER_HOME"; \
-    # Ensure drupal's autoload.php is present
-    ls -lah web/autoload.php;
-
-ENV PATH=${PATH}:/var/www/vendor/bin
-
-RUN set -eux; \
     # Add entrypoint wrapper to ease drupal deployments
     mv docker/bin/custom-entrypoint /usr/local/bin/; \
     # Make apache pass env vars to PHP
@@ -152,6 +139,8 @@ RUN set -eux; \
       private \
       tmp \
       ;
+
+ENV PATH=${PATH}:/var/www/vendor/bin
 
 # Initialize ENV vars for safety
 ENV \
