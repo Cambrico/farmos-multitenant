@@ -159,5 +159,5 @@ ENV \
 
 RUN chmod 755 /usr/local/bin/custom-entrypoint
 
-ENTRYPOINT ["/usr/local/bin/custom-entrypoint"]
+ENTRYPOINT ["sh", "-c", "/usr/local/bin/custom-entrypoint"]
 CMD ["apache2-foreground"]
