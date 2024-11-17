@@ -111,6 +111,8 @@ COPY . /var/www
 
 WORKDIR /var/www
 
+ENV PATH=${PATH}:/var/www/vendor/bin
+
 RUN set -eux; \
     # Add entrypoint wrapper to ease drupal deployments
     mv docker/bin/custom-entrypoint /usr/local/bin/; \
@@ -139,8 +141,6 @@ RUN set -eux; \
       private \
       tmp \
       ;
-
-ENV PATH=${PATH}:/var/www/vendor/bin
 
 # Initialize ENV vars for safety
 ENV \
