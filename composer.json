@@ -20,7 +20,9 @@
         "oomphinc/composer-installers-extender": "^2.0",
         "wikimedia/composer-merge-plugin": "^2.0",
         "drush/drush": "^12.5",
-        "drupal/group": "^3.3"
+        "drupal/group": "^3.3",
+        "drupal/dashboard": "^2.0",
+        "drupal/farm_multitenant": "1.0.x-dev@dev"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

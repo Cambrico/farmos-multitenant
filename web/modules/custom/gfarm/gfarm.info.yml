@@ -1,8 +1,0 @@
-name: 'Group Farm'
-description: 'Enables Group functionality for Farm organizations'
-package: 'Organization'
-type: 'module'
-core_version_requirement: ^10
-dependencies:
-  - 'farm:organization'
-  - 'group:group'
